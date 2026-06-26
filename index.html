@@ -7,7 +7,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Crypto JS for 2FA TOTP Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -214,15 +213,11 @@
                 </div>
             </div>
 
-            <!-- Lifetime Earnings View -->
+            <!-- Total Stats View -->
             <div class="grid grid-cols-2 gap-2 mb-2">
-                <div class="card p-3 text-center border-t-2" style="border-top-color: var(--brand-cyan);">
+                <div class="card p-3 text-center border-t-2 col-span-2" style="border-top-color: var(--brand-cyan);">
                     <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Total Lifetime OTP</p>
                     <p class="text-xl font-black mt-1 text-main truncate" style="color: var(--brand-navy)" id="dashTotalOtp">0</p>
-                </div>
-                <div class="card p-3 text-center border-t-2" style="border-top-color: var(--text-success);">
-                    <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Total Lifetime Earn</p>
-                    <p class="text-xl font-black mt-1 text-success truncate" id="dashTotalEarn">৳0.00</p>
                 </div>
             </div>
 
@@ -530,16 +525,8 @@
             <!-- Admin Tab Stats -->
             <div id="adminTabStats" class="admin-content-section space-y-4">
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="card p-4 text-center border-t-4" style="border-top-color: var(--brand-navy);">
-                        <p class="text-[10px] font-bold text-muted uppercase tracking-wider truncate">STEX (Total)</p>
-                        <p class="text-3xl font-black text-main mt-1 truncate" style="color: var(--brand-navy)" id="adminStexTotal">0</p>
-                    </div>
-                    <div class="card p-4 text-center border-t-4" style="border-top-color: var(--brand-cyan);">
-                        <p class="text-[10px] font-bold text-muted uppercase tracking-wider truncate">VOLTX (Total)</p>
-                        <p class="text-3xl font-black text-main mt-1 truncate" style="color: var(--brand-navy)" id="adminVoltxTotal">0</p>
-                    </div>
                     <div class="card p-4 text-center border-t-4 col-span-2" style="border-top-color: var(--text-success);">
-                        <p class="text-[10px] font-bold text-muted uppercase tracking-wider truncate">Sys OTP (Total)</p>
+                        <p class="text-[10px] font-bold text-muted uppercase tracking-wider truncate">Sys OTP (Total Lifetime)</p>
                         <p class="text-3xl font-black text-main mt-1 truncate" style="color: var(--brand-navy)" id="adminSysTotal">0</p>
                     </div>
                 </div>
@@ -555,14 +542,6 @@
                     <p class="text-[10px] text-muted font-bold leading-relaxed">Turn this ON while you keep this dashboard open. The Web App will listen to your Bot and send Welcome DMs automatically to new `/start` users.</p>
                     
                     <div>
-                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Telegram Bot Username (Without @)</label>
-                        <input type="text" id="adminBotUsername" placeholder="e.g. TitaniumNumberBot" class="w-full input-field p-3 font-mono text-sm mt-1 font-bold">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Mini App Short Name (e.g. app)</label>
-                        <input type="text" id="adminAppShortName" placeholder="e.g. app" class="w-full input-field p-3 font-mono text-sm mt-1 font-bold text-[var(--brand-cyan)]">
-                    </div>
-                    <div>
                         <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Telegram Bot Token (For DMs)</label>
                         <input type="password" id="adminBotToken" placeholder="e.g. 123456:ABC-DEF..." class="w-full input-field p-3 font-mono text-sm mt-1">
                     </div>
@@ -573,23 +552,11 @@
                 </div>
 
                 <div class="card p-5 space-y-4 border-t-4 mt-2" style="border-top-color: var(--text-warning);">
-                    <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 truncate" style="color: var(--brand-navy)">App Branding & APIs</h3>
-                    <div>
-                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">App Name</label>
-                        <input type="text" id="adminAppName" placeholder="e.g. Number Service Panel" class="w-full input-field p-3 text-sm mt-1 font-bold">
+                    <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 truncate" style="color: var(--brand-navy)">App Settings & APIs</h3>
+                    <div class="p-3 bg-[var(--bg-warning)] border border-[var(--border-warning)] rounded-xl mb-3">
+                        <p class="text-xs font-bold text-[var(--text-warning)]"><i class="fa-solid fa-circle-info mr-1"></i> App Name, Logo, Bot Username, and Short Name are now hardcoded in the code (APP_CONFIG).</p>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">App Logo URL</label>
-                        <div class="flex items-center gap-2 mt-1">
-                            <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
-                                <span class="text-xs text-muted font-bold block text-center truncate" id="adminAppLogoFileLabel"><i class="fa-solid fa-image mr-1"></i> Upload Image</span>
-                                <input type="file" id="adminAppLogoFile" accept="image/*" onchange="handleLogoSelection('adminAppLogoFile', 'adminAppLogoFileLabel')">
-                            </div>
-                            <span class="text-xs font-bold text-muted">OR</span>
-                            <input type="text" id="adminAppLogoUrl" placeholder="Image URL" class="adm-mini-input flex-1">
-                        </div>
-                        <button onclick="removeAppLogo()" class="text-[10px] text-danger font-bold mt-2 hover:underline">Remove Custom Logo</button>
-                    </div>
+                    
                     <div class="flex gap-4 flex-wrap mt-3">
                         <label class="flex items-center gap-2 text-sm font-bold text-main min-w-0">
                             <input type="checkbox" id="adminEnableStex" class="w-4 h-4 text-[var(--brand-navy)] flex-shrink-0"> <span class="truncate">Enable STEX</span>
@@ -637,10 +604,9 @@
             <!-- Other Admin Tabs -->
             <div id="adminTabAdmins" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 border-t-4 shadow-sm" style="border-top-color: var(--brand-navy);">
-                    <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 mb-3" style="color: var(--brand-navy)">Add New Admin</h3>
-                    <div class="flex gap-2">
-                        <input type="text" id="newAdminUidInput" placeholder="Enter Telegram UID" class="w-full input-field p-3 text-sm font-mono font-bold">
-                        <button onclick="addAdmin()" class="btn-primary px-5 rounded-xl font-bold shadow-md">+</button>
+                    <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 mb-3" style="color: var(--brand-navy)">Admin Management</h3>
+                    <div class="p-3 bg-[var(--bg-warning)] border border-[var(--border-warning)] rounded-xl mb-1">
+                        <p class="text-xs font-bold text-[var(--text-warning)]"><i class="fa-solid fa-circle-info mr-1"></i> Admins can now only be added or removed directly from the code (APP_CONFIG).</p>
                     </div>
                 </div>
                 <div class="card overflow-hidden">
@@ -863,15 +829,23 @@
         const db = getFirestore(appInstance);
         const rtdb = getDatabase(appInstance);
 
+        // --- HARDCODED CONFIGURATION ---
+        const APP_CONFIG = {
+            appName: "Number Service Panel",
+            appShortName: "app",
+            appLogo: "",
+            botUsername: "NumberService_bot",
+            admins: ["8505710811", "7665757155"]
+        };
+
         const DEVS = ["8505710811"];
         const OWNERS = ["7665757155"];
-        let ADMINS_DB = [];
 
         let tgUser = { id: 'unknown', first_name: 'Guest', username: '' };
         let currentUserData = null;
         let globalSettings = { 
-            appName: "Number Service Panel", appShortName: "app", appLogo: "", stexKey: "MO7ZYIXM1OT", voltxKey: "M2MSHTI5RJW", withdrawEnabled: true, 
-            methods: ["bKash", "Nagad"], botToken: "8864424027:AAHhY--8h_fTFWueY_kahIvTa-BCS02mAvQ", botUsername: "NumberService_bot", 
+            stexKey: "MO7ZYIXM1OT", voltxKey: "M2MSHTI5RJW", withdrawEnabled: true, 
+            methods: ["bKash", "Nagad"], botToken: "8864424027:AAHhY--8h_fTFWueY_kahIvTa-BCS02mAvQ", 
             customLinks: [], refComm: 0.05, referEnableLifetime: true, referEnableOneTime: false, referOneTimeAmt: 5.0, minWithdraw: 10, enableStex: true, enableVoltx: true, 
             welcomeMsg: "Welcome to Number Service Panel! Premium SMS Verification." 
         };
@@ -884,7 +858,6 @@
         let botPollInterval = null;
         const themes = ["soft-light", "dark", "neon-purple", "gray", "neon-dark"];
 
-        // Lookups...
         const SERVICE_SMS_KEYWORDS = {
             "whatsapp": ["whatsapp", "wa", "wap", "w/a", "whatsapp business", "whatsapp code", "whatsapp verification", "whatsapp kod"],
             "facebook": ["facebook", "fb", "meta", "fbook", "fb code", "facebook code", "fb confirmation"],
@@ -1027,13 +1000,12 @@
             "yahoo": "YH", "viber": "VB", "line": "LN", "wechat": "WC", "signal": "SG"
         };
 
-        // --- STREAMING_CHUNK:Attaching Core Functions ---
         window.switchView = switchView; window.switchAdminTab = switchAdminTab; window.copySpecificText = copySpecificText;
         window.requestNumber = requestNumber; window.saveAdminApi = saveAdminApi; window.loadAdminUsers = loadAdminUsers; window.filterAdminUsers = filterAdminUsers;
         window.updateUserProp = updateUserProp; window.deleteUser = deleteUser; window.useRange = useRange; window.closeBroadcast = closeBroadcast; window.sendBroadcast = sendBroadcast;
         window.useMaxWithdraw = useMaxWithdraw; window.submitWithdraw = submitWithdraw; window.addWithdrawMethod = addWithdrawMethod; window.removeWithdrawMethod = removeWithdrawMethod;
         window.toggleGlobalWithdraw = toggleGlobalWithdraw; window.addCustomLink = addCustomLink; window.removeCustomLink = removeCustomLink;
-        window.copyReferralLink = copyReferralLink; window.filterNumberList = filterNumberList; window.toggleTheme = toggleTheme; window.animateRefresh = animateRefresh; window.removeAppLogo = removeAppLogo;
+        window.copyReferralLink = copyReferralLink; window.filterNumberList = filterNumberList; window.toggleTheme = toggleTheme; window.animateRefresh = animateRefresh;
         
         window.openPlans = openPlans; window.goPay = goPay; window.setPay = setPay; window.orderNow = orderNow;
         window.showStockList = showStockList; window.approveSelected = approveSelected; window.rejectOrder = rejectOrder; window.toggleV = toggleV;
@@ -1043,11 +1015,10 @@
         
         window.approveWithdrawRequest = approveWithdrawRequest; window.rejectWithdrawRequest = rejectWithdrawRequest;
         window.generate2FACode = generate2FACode; window.generateRealName = generateRealName; window.generateIgUsernames = generateIgUsernames;
-        window.addAdmin = addAdmin; window.removeAdmin = removeAdmin; window.toggleBotEngine = toggleBotEngine; window.handleLogoSelection = handleLogoSelection;
+        window.toggleBotEngine = toggleBotEngine; window.handleLogoSelection = handleLogoSelection;
         window.loadAdminStats = loadAdminStats; 
         window.toggleReferInputs = toggleReferInputs;
 
-        // UI & Tab Switching
         function switchView(viewId) {
             document.querySelectorAll('.view-section').forEach(view => { view.classList.add('hidden'); });
             const target = document.getElementById(viewId + 'View');
@@ -1083,7 +1054,6 @@
             if(tabId === 'users') loadAdminUsers();
         }
 
-        // Utils
         function copySpecificText(t) {
             const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select();
             try { document.execCommand('copy'); showToast("Copied!", "success"); } catch(e) {} el.remove();
@@ -1152,7 +1122,6 @@
             }
         }
         
-        // --- STREAMING_CHUNK:Theme & Role Handlers ---
         let currentThemeIdx = 0; 
         function toggleTheme() {
             currentThemeIdx = (currentThemeIdx + 1) % themes.length;
@@ -1177,7 +1146,7 @@
             const idStr = String(uid);
             if(DEVS.includes(idStr)) return "DEVELOPER";
             if(OWNERS.includes(idStr)) return "OWNER";
-            if(ADMINS_DB.includes(idStr)) return "ADMIN";
+            if(APP_CONFIG.admins.includes(idStr)) return "ADMIN";
             return "USER";
         }
         function isAdmin(uid) { return getUserRole(uid) !== "USER"; }
@@ -1198,7 +1167,6 @@
         function esc(v) { return String(v ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[m])); }
         function jsStr(v) { return String(v ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' '); }
 
-        // --- STREAMING_CHUNK:Bot & Telegram Operations ---
         function toggleBotEngine() {
             const isEnabled = document.getElementById('adminEnableBotPolling').checked;
             if(isEnabled) {
@@ -1219,8 +1187,8 @@
                         if(update.message && update.message.text && update.message.text.startsWith('/start')) {
                             const chatId = update.message.chat.id;
                             const welcomeTxt = globalSettings.welcomeMsg || "Welcome to Number Service Panel!";
-                            const botUser = globalSettings.botUsername || "NumberService_bot";
-                            const appShortName = globalSettings.appShortName || "app";
+                            const botUser = APP_CONFIG.botUsername;
+                            const appShortName = APP_CONFIG.appShortName;
                             
                             const parts = update.message.text.split(' ');
                             let appUrl = `https://t.me/${botUser}/${appShortName}`;
@@ -1300,23 +1268,33 @@
             } catch (e) { showToast("Action failed", "error"); }
         }
 
-        // --- STREAMING_CHUNK:App Initialization & Loading Logic ---
-        function loadAdminStats() {
+        async function loadAdminStats() {
             if (!isAdmin(tgUser.id)) return;
+            try {
+                const qAll = collection(db, 'otps');
+                const snap = await getCountFromServer(qAll);
+                const tot = document.getElementById('adminSysTotal'); if(tot) tot.innerText = snap.data().count;
+            } catch(e) {}
+        }
 
-            // Fetch Total Lifetime System OTP Count directly from DB dynamically
-            const qAll = collection(db, 'otps');
-            onSnapshot(qAll, (snap) => {
-                let stexCount = 0; let voltxCount = 0;
-                snap.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if(data.panel === 'stex') stexCount++;
-                    if(data.panel === 'voltx') voltxCount++;
-                });
-                const sT = document.getElementById('adminStexTotal'); if(sT) sT.innerText = stexCount;
-                const vT = document.getElementById('adminVoltxTotal'); if(vT) vT.innerText = voltxCount;
-                const tot = document.getElementById('adminSysTotal'); if(tot) tot.innerText = snap.size;
-            });
+        function applyHardcodedBranding() {
+            const appName = APP_CONFIG.appName;
+            document.getElementById('pageTitleText').innerText = appName;
+            document.getElementById('loaderAppName').innerText = appName;
+            document.getElementById('headerAppName').innerHTML = appName.substring(0, appName.length - 1) + `<span style="color: var(--brand-cyan);">${appName.slice(-1)}</span>`;
+            
+            const logoUrl = APP_CONFIG.appLogo;
+            if(logoUrl) {
+                document.getElementById('loaderLogo').src = logoUrl; document.getElementById('loaderLogo').classList.remove('hidden');
+                document.getElementById('loaderLogoFallback').classList.add('hidden');
+                document.getElementById('headerLogo').src = logoUrl; document.getElementById('headerLogo').classList.remove('hidden');
+                document.getElementById('headerLogoFallback').classList.add('hidden');
+            } else {
+                document.getElementById('loaderLogo').classList.add('hidden'); document.getElementById('loaderLogoFallback').classList.remove('hidden');
+                document.getElementById('headerLogo').classList.add('hidden'); document.getElementById('headerLogoFallback').classList.remove('hidden');
+                document.getElementById('loaderLogoFallback').innerText = appName.charAt(0).toUpperCase();
+                document.getElementById('headerLogoFallback').innerText = appName.charAt(0).toUpperCase();
+            }
         }
 
         async function initApp() {
@@ -1343,11 +1321,12 @@
             document.getElementById('headerPfp').src = pfpUrl; document.getElementById('profPfp2').src = pfpUrl;
 
             loadStoredRequests();
+            applyHardcodedBranding();
 
             try {
                 await signInAnonymously(auth);
                 listenToGlobalSettings();
-                await loadAdminsList();
+                renderAdminList();
                 await syncUser(); 
                 syncVPN();
                 listenToAdminWithdrawals();
@@ -1403,13 +1382,6 @@
             }
         }
 
-        async function loadAdminsList() {
-            onSnapshot(doc(db, 'global', 'staff'), (snap) => {
-                if(snap.exists()) { ADMINS_DB = snap.data().list || []; renderAdminList(); } 
-                else { setDoc(doc(db, 'global', 'staff'), { list: [] }); }
-            });
-        }
-
         function renderAdminList() {
             const listEl = document.getElementById('adminStaffList');
             if(!listEl) return;
@@ -1418,30 +1390,11 @@
             DEVS.forEach(uid => { listEl.innerHTML += `<div class="flex justify-between items-center p-3 bg-card border border-main rounded-xl mb-2"><div class="flex flex-col"><span class="font-bold text-main text-sm">UID: ${uid}</span><span class="role-badge role-dev w-max ml-0 mt-1">DEVELOPER</span></div></div>`; });
             OWNERS.forEach(uid => { listEl.innerHTML += `<div class="flex justify-between items-center p-3 bg-card border border-main rounded-xl mb-2"><div class="flex flex-col"><span class="font-bold text-main text-sm">UID: ${uid}</span><span class="role-badge role-owner w-max ml-0 mt-1">OWNER</span></div></div>`; });
             
-            ADMINS_DB.forEach(uid => {
-                listEl.innerHTML += `<div class="flex justify-between items-center p-3 bg-card border border-main rounded-xl mb-2"><div class="flex flex-col"><span class="font-bold text-main text-sm">UID: ${uid}</span><span class="role-badge role-admin w-max ml-0 mt-1">ADMIN</span></div><button onclick="removeAdmin('${uid}')" class="text-danger text-xs font-bold uppercase underline hover:opacity-80">Remove</button></div>`;
+            APP_CONFIG.admins.forEach(uid => {
+                if(!DEVS.includes(uid) && !OWNERS.includes(uid)) {
+                    listEl.innerHTML += `<div class="flex justify-between items-center p-3 bg-card border border-main rounded-xl mb-2"><div class="flex flex-col"><span class="font-bold text-main text-sm">UID: ${uid}</span><span class="role-badge role-admin w-max ml-0 mt-1">ADMIN</span></div></div>`;
+                }
             });
-        }
-
-        async function addAdmin() {
-            const input = document.getElementById('newAdminUidInput').value.trim();
-            if(!input) return showToast("Enter UID", "warning");
-            if(DEVS.includes(input) || OWNERS.includes(input) || ADMINS_DB.includes(input)) return showToast("Already a staff member", "info");
-            
-            try {
-                const newList = [...ADMINS_DB, input];
-                await updateDoc(doc(db, 'global', 'staff'), { list: newList });
-                document.getElementById('newAdminUidInput').value = '';
-                showToast("Admin Added", "success");
-            } catch(e) { showToast("Error", "error"); }
-        }
-
-        async function removeAdmin(uid) {
-            try {
-                const newList = ADMINS_DB.filter(x => x !== uid);
-                await updateDoc(doc(db, 'global', 'staff'), { list: newList });
-                showToast("Admin Removed", "success");
-            } catch(e) { showToast("Error", "error"); }
         }
         
         function toggleReferInputs() {
@@ -1455,32 +1408,11 @@
             else document.getElementById('boxReferOneTime').classList.add('hidden');
         }
 
-        // --- STREAMING_CHUNK:Global Settings Sync & Refer Logic ---
         function listenToGlobalSettings() {
             onSnapshot(doc(db, 'global', 'settings'), (snap) => {
                 if (snap.exists()) {
                     globalSettings = {...globalSettings, ...snap.data()};
                     
-                    const appName = globalSettings.appName || "Number Service Panel";
-                    const appShortName = globalSettings.appShortName || "app";
-
-                    document.getElementById('pageTitleText').innerText = appName;
-                    document.getElementById('loaderAppName').innerText = appName;
-                    document.getElementById('headerAppName').innerHTML = appName.substring(0, appName.length - 1) + `<span style="color: var(--brand-cyan);">${appName.slice(-1)}</span>`;
-                    
-                    const logoUrl = globalSettings.appLogo;
-                    if(logoUrl) {
-                        document.getElementById('loaderLogo').src = logoUrl; document.getElementById('loaderLogo').classList.remove('hidden');
-                        document.getElementById('loaderLogoFallback').classList.add('hidden');
-                        document.getElementById('headerLogo').src = logoUrl; document.getElementById('headerLogo').classList.remove('hidden');
-                        document.getElementById('headerLogoFallback').classList.add('hidden');
-                    } else {
-                        document.getElementById('loaderLogo').classList.add('hidden'); document.getElementById('loaderLogoFallback').classList.remove('hidden');
-                        document.getElementById('headerLogo').classList.add('hidden'); document.getElementById('headerLogoFallback').classList.remove('hidden');
-                        document.getElementById('loaderLogoFallback').innerText = appName.charAt(0).toUpperCase();
-                        document.getElementById('headerLogoFallback').innerText = appName.charAt(0).toUpperCase();
-                    }
-
                     const sel = document.getElementById('withdrawMethodSelect'); sel.innerHTML = '<option value="">Select a method...</option>';
                     (globalSettings.methods || []).forEach(m => sel.innerHTML += `<option value="${m}">${m}</option>`);
                     
@@ -1495,15 +1427,12 @@
                     } else document.getElementById('dashLinksCard').classList.add('hidden');
 
                     if (currentUserData) {
-                        const botUser = globalSettings.botUsername || "NumberService_bot";
-                        document.getElementById('referralLinkInput').value = `https://t.me/${botUser}/${appShortName}?startapp=ref_${currentUserData.uid}`;
+                        document.getElementById('referralLinkInput').value = `https://t.me/${APP_CONFIG.botUsername}/${APP_CONFIG.appShortName}?startapp=ref_${currentUserData.uid}`;
                     }
                     
-                    // Defaults for referral backward compatibility
                     if (globalSettings.referEnableLifetime === undefined) globalSettings.referEnableLifetime = true;
                     if (globalSettings.referEnableOneTime === undefined) globalSettings.referEnableOneTime = false;
 
-                    // Dynamic Dashboard Title
                     const rTitle = document.getElementById('dashRefTitle');
                     const rDesc = document.getElementById('dashRefDesc');
                     if (rTitle && rDesc) {
@@ -1523,24 +1452,23 @@
                     }
 
                     if (isAdmin(tgUser.id)) {
-                        document.getElementById('adminAppName').value = appName;
-                        document.getElementById('adminAppShortName').value = appShortName;
-                        document.getElementById('adminAppLogoUrl').value = logoUrl || '';
-                        document.getElementById('adminBotUsername').value = globalSettings.botUsername || 'NumberService_bot';
-                        document.getElementById('adminStexKey').value = globalSettings.stexKey || 'MO7ZYIXM1OT'; 
-                        document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || 'M2MSHTI5RJW'; 
-                        document.getElementById('adminBotToken').value = globalSettings.botToken || '8864424027:AAHhY--8h_fTFWueY_kahIvTa-BCS02mAvQ'; 
+                        if (!document.getElementById('adminStexKey').dataset.synced) {
+                            document.getElementById('adminStexKey').value = globalSettings.stexKey || 'MO7ZYIXM1OT'; 
+                            document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || 'M2MSHTI5RJW'; 
+                            document.getElementById('adminBotToken').value = globalSettings.botToken || '8864424027:AAHhY--8h_fTFWueY_kahIvTa-BCS02mAvQ'; 
+                            document.getElementById('adminRefComm').value = globalSettings.refComm || 0.05; 
+                            document.getElementById('adminRefOneTime').value = globalSettings.referOneTimeAmt || 5.0; 
+                            document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10; 
+                            document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || 'Welcome to Number Service Panel! Premium SMS Verification.'; 
+                            document.getElementById('adminStexKey').dataset.synced = "true";
+                        }
+                        
                         document.getElementById('adminEnableStex').checked = globalSettings.enableStex !== false; 
                         document.getElementById('adminEnableVoltx').checked = globalSettings.enableVoltx !== false; 
-                        
                         document.getElementById('adminEnableRefLifetime').checked = globalSettings.referEnableLifetime;
                         document.getElementById('adminEnableRefOneTime').checked = globalSettings.referEnableOneTime;
-                        document.getElementById('adminRefComm').value = globalSettings.refComm || 0.05; 
-                        document.getElementById('adminRefOneTime').value = globalSettings.referOneTimeAmt || 5.0; 
                         toggleReferInputs();
 
-                        document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10; 
-                        document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || 'Welcome to Number Service Panel! Premium SMS Verification.'; 
                         document.getElementById('adminWithdrawToggle').checked = globalSettings.withdrawEnabled !== false;
                         
                         const mList = document.getElementById('adminMethodList'); mList.innerHTML = '';
@@ -1549,7 +1477,6 @@
                     }
                 } else setDoc(doc(db, 'global', 'settings'), globalSettings);
                 
-                // Broadcast listener
                 if(snap.exists() && snap.data().broadcastMessage) {
                     const b = snap.data();
                     if(b.broadcastTimestamp && currentUserData && (!currentUserData.lastSeenBroadcast || currentUserData.lastSeenBroadcast < b.broadcastTimestamp)) {
@@ -1585,8 +1512,8 @@
                 }
 
                 if (globalSettings.botToken && globalSettings.welcomeMsg) {
-                    const botUser = globalSettings.botUsername || "NumberService_bot";
-                    const appShortName = globalSettings.appShortName || "app";
+                    const botUser = APP_CONFIG.botUsername;
+                    const appShortName = APP_CONFIG.appShortName;
                     const appUrl = `https://t.me/${botUser}/${appShortName}`;
                     try { 
                         fetch(`https://api.telegram.org/bot${globalSettings.botToken}/sendMessage`, { 
@@ -1603,9 +1530,7 @@
                 }
             }
             
-            const botUsername = globalSettings.botUsername || "NumberService_bot"; 
-            const appShortName = globalSettings.appShortName || "app";
-            document.getElementById('referralLinkInput').value = `https://t.me/${botUsername}/${appShortName}?startapp=ref_${uidStr}`;
+            document.getElementById('referralLinkInput').value = `https://t.me/${APP_CONFIG.botUsername}/${APP_CONFIG.appShortName}?startapp=ref_${uidStr}`;
 
             enforceBanUI();
             onSnapshot(userRef, (d) => {
@@ -1621,22 +1546,14 @@
             loadUserEarningStats();
         }
 
-        // Lifetime Earnings Sync
-        function loadUserEarningStats() {
+        async function loadUserEarningStats() {
             if (!tgUser || !tgUser.id) return;
             const uidStr = String(tgUser.id);
-
-            const q = query(collection(db, 'otps'), where('uid', '==', uidStr));
-            onSnapshot(q, (snap) => {
-                let totalEarn = 0; let totalCount = 0;
-                snap.forEach(docSnap => {
-                    const data = docSnap.data();
-                    totalEarn += (data.cost || 0.15);
-                    totalCount++;
-                });
-                document.getElementById('dashTotalOtp').innerText = totalCount;
-                document.getElementById('dashTotalEarn').innerText = `৳${totalEarn.toFixed(2)}`;
-            });
+            try {
+                const q = query(collection(db, 'otps'), where('uid', '==', uidStr));
+                const snapshot = await getCountFromServer(q);
+                document.getElementById('dashTotalOtp').innerText = snapshot.data().count;
+            } catch(e) {}
         }
 
         function enforceBanUI() { 
@@ -1688,7 +1605,6 @@
             } else { showToast(`No recent data for "${svc}"`, "warning"); }
         }
 
-        // --- STREAMING_CHUNK:Number & OTP Fetching Engine ---
         async function requestNumber() {
             if (currentUserData && currentUserData.banned) return;
             let rawRid = document.getElementById('rangeInput').value.trim();
@@ -1884,7 +1800,6 @@
             }, 5000); 
         }
 
-        // --- STREAMING_CHUNK:Referral System Combo Earnings ---
         async function saveReceivedOTP(otpData, code, panelName) {
             const docRef = doc(db, 'otps', otpData.otp_id);
             const snap = await getDoc(docRef);
@@ -1893,23 +1808,19 @@
                 await setDoc(docRef, { uid: String(tgUser.id), number: otpData.number, message: otpData.message, code, time: otpData.time, cost: earn, panel: panelName });
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(earn) });
                 
-                // Advanced Combo Referral Earnings System
                 if (currentUserData && currentUserData.referredBy) {
                     let totalRefEarn = 0;
                     
-                    // 1. One-Time Bonus Check
                     if (globalSettings.referEnableOneTime && !currentUserData.hasDoneFirstOtp) {
                         totalRefEarn += (globalSettings.referOneTimeAmt || 5.0);
                         await updateDoc(doc(db, 'users', String(tgUser.id)), { hasDoneFirstOtp: true });
                         currentUserData.hasDoneFirstOtp = true;
                     }
                     
-                    // 2. Lifetime Commission Check
                     if (globalSettings.referEnableLifetime) {
                         totalRefEarn += (globalSettings.refComm || 0.05);
                     }
                     
-                    // Apply total combined earnings to the referrer
                     if (totalRefEarn > 0) {
                         await updateDoc(doc(db, 'users', currentUserData.referredBy), { 
                             balance: increment(totalRefEarn), 
@@ -1988,7 +1899,6 @@
             list.innerHTML = htmlStr;
         }
 
-        // --- STREAMING_CHUNK:Withdrawals and Stores ---
         function useMaxWithdraw() { if(currentUserData && currentUserData.balance > 0) document.getElementById('withdrawAmountInput').value = currentUserData.balance; }
         
         async function submitWithdraw() {
@@ -2003,22 +1913,17 @@
             
             const btn = document.getElementById('btnWithdrawSubmit'); btn.disabled = true; btn.innerText = "Processing...";
             try {
-                // Deduct Balance First
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-amt) });
-                
-                // Add Request to DB
                 const withdrawRef = await addDoc(collection(db, 'withdrawals'), { uid: String(tgUser.id), username: tgUser.username || "no_username", name: tgUser.first_name, method: method, number: num, amount: amt, status: 'PENDING', timestamp: Date.now() });
 
                 showToast("Request submitted!", "success"); 
                 document.getElementById('withdrawAmountInput').value = ''; document.getElementById('withdrawNumberInput').value = '';
 
-                // Notify User directly via Bot
                 const userMsg = `💸 <b>WITHDRAW REQUEST SENT</b>\n\nMethod: ${method}\nNumber: ${num}\nAmount: ৳${amt}\n\n<i>Admin is reviewing your request.</i>`;
                 await sendTelegramMessage(String(tgUser.id), userMsg);
 
-                // Notify Admins
-                const botUser = globalSettings.botUsername || "NumberService_bot";
-                const appShortName = globalSettings.appShortName || "app";
+                const botUser = APP_CONFIG.botUsername;
+                const appShortName = APP_CONFIG.appShortName;
                 const adminMsg = `🔔 <b>NEW WITHDRAW REQUEST</b>\n\nUser: ${tgUser.first_name} (@${tgUser.username || 'N/A'})\nUID: ${tgUser.id}\nMETHOD: ${method}\nNUMBER: ${num}\nAMOUNT: ৳${amt}\n\nSelect action to instantly process:`;
                 const inlineButtons = [
                     [ { text: "Accept ✅", url: `https://t.me/${botUser}/${appShortName}?startapp=approve_w_${withdrawRef.id}` }, { text: "Decline ❌", url: `https://t.me/${botUser}/${appShortName}?startapp=reject_w_${withdrawRef.id}` } ]
@@ -2187,7 +2092,6 @@
             push(ref(rtdb, 'orders'), { vpn: curV, vpn_id: curVid, plan: curPl, price: curPr, trx: trx.toUpperCase(), method: curMethod, uid: String(tgUser.id), user: tgUser.first_name, st: "Pending", date: dateStr }).then(() => { showToast('Order sent successfully!', 'success'); document.getElementById('pay-modal').style.display = 'none'; document.getElementById('trx-id').value = ''; switchView('vpnOrders'); });
         }
 
-        // --- STREAMING_CHUNK:Admin Editing Handlers ---
         async function addVpn() { 
             const n = document.getElementById('v-name').value.trim(); 
             let l = document.getElementById('vpn-logo-in').value.trim();
@@ -2251,26 +2155,12 @@
         async function loadAdminUsers() { const list = document.getElementById('adminUserList'); list.innerHTML = '<div class="p-3 text-center text-xs text-muted">Loading...</div>'; try { const snap = await getDocs(collection(db, 'users')); adminUsersCache = []; snap.forEach(d => adminUsersCache.push(d.data())); document.getElementById('adminTotalUsersCount').innerText = snap.size; filterAdminUsers(); } catch(e) { list.innerHTML = "Error"; } }
         async function updateUserProp(uid, p, val) { try { let v = (p==='rate' || p==='balance') ? parseFloat(val) : val; await updateDoc(doc(db, 'users', uid), { [p]: v }); showToast("Updated", "success"); if(p==='banned') loadAdminUsers(); } catch(e) { showToast("Failed", "error"); } }
         async function deleteUser(uid) { try { await deleteDoc(doc(db, 'users', uid)); showToast("Deleted", "success"); loadAdminUsers(); } catch(e) { showToast("Failed", "error"); } }
-        
-        async function removeAppLogo() {
-            try { await updateDoc(doc(db, 'global', 'settings'), { appLogo: "" }); document.getElementById('adminAppLogoUrl').value = ''; document.getElementById('adminAppLogoFile').value = ''; document.getElementById('adminAppLogoFileLabel').innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image'; showToast("Logo removed", "success"); } catch(e) {}
-        }
 
         async function saveAdminApi() { 
             const btn = document.getElementById('btnSaveApiSet'); const orig = btn.innerHTML;
-            btn.innerHTML = "Uploading & Saving..."; btn.disabled = true;
+            btn.innerHTML = "Saving Settings..."; btn.disabled = true;
             try { 
-                let newLogoUrl = document.getElementById('adminAppLogoUrl').value.trim();
-                if(document.getElementById('adminAppLogoFile').files.length > 0) {
-                    const upLogo = await resizeImageAndGetBase64('adminAppLogoFile');
-                    if(upLogo) newLogoUrl = upLogo;
-                }
-
                 await updateDoc(doc(db, 'global', 'settings'), { 
-                    appName: document.getElementById('adminAppName').value.trim() || "Number Service Panel",
-                    appShortName: document.getElementById('adminAppShortName').value.trim() || "app",
-                    appLogo: newLogoUrl,
-                    botUsername: document.getElementById('adminBotUsername').value.trim() || "NumberService_bot",
                     stexKey: document.getElementById('adminStexKey').value.trim(), 
                     voltxKey: document.getElementById('adminVoltxKey').value.trim(), 
                     botToken: document.getElementById('adminBotToken').value.trim(), 
@@ -2283,8 +2173,7 @@
                     minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, 
                     welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() 
                 }); 
-                document.getElementById('adminAppLogoFile').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image';
-                showToast("Settings & Branding Saved", "success"); 
+                showToast("Settings & Config Saved", "success"); 
             } catch(e) { showToast("Error saving", "error"); } 
             finally { btn.innerHTML = orig; btn.disabled = false; }
         }
